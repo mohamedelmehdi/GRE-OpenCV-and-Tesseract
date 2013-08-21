@@ -30,6 +30,7 @@
     NSString *databasePath = [[NSBundle mainBundle] pathForResource:@"myDict" ofType:@"db"];
     NSMutableArray *explainArray = [[NSMutableArray alloc] init];
     int i = 0;
+    NSMutableArray *wordsVaild = [[NSMutableArray alloc] init];
     NSStringEncoding enc =  CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingUTF8);
     if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK)
     {
@@ -37,7 +38,12 @@
         
         
         for (NSString *w in words){
-            if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"SELECT explain from 'Words' where word='%@'",[words objectAtIndex:i]] UTF8String], -1, &statement, nil) == SQLITE_OK){
+            i++;
+            if ([(NSString *)[words objectAtIndex:i-1] length] == 0) {
+                continue;
+            }
+            [wordsVaild addObject:w];
+            if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"SELECT explain from 'Words' where word='%@'",[words objectAtIndex:i-1]] UTF8String], -1, &statement, nil) == SQLITE_OK){
                 while (sqlite3_step(statement) == SQLITE_ROW ){
                     NSString *query = [[NSString alloc] initWithCString:(char *)sqlite3_column_text(statement, 0) encoding:enc];
                     if([query length]>0){
@@ -49,13 +55,12 @@
             }else{
                 [explainArray addObject:@"未找到"];
             }
-            i++;
         }
     }
     NSLog(@"%@",explainArray);
     NSString *explain = [[NSString alloc] init];
     for (int p = 0; p < [explainArray count]; p++) {
-        explain = [explain stringByAppendingString:[words objectAtIndex:p]];
+        explain = [explain stringByAppendingString:[wordsVaild objectAtIndex:p]];
         explain = [explain stringByAppendingFormat:@"\n%@\n\n",[explainArray objectAtIndex:p]];
     }
     return explain;
