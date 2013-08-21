@@ -11,6 +11,7 @@
 #include "baseapi.h"
 #include "environ.h"
 #import "pix.h"
+
 @interface UIProgressHUD : NSObject
 - (void) show: (BOOL) yesOrNo;
 - (UIProgressHUD *) initWithWindow: (UIView *) window;
@@ -24,12 +25,46 @@
 @synthesize videoCamera = _videoCamera;
 @synthesize myHUD = _myHUD;
 @synthesize OCRresult;
+
+- (NSString *)sqlQueryWithArray:(NSArray *)words{
+    NSString *databasePath = [[NSBundle mainBundle] pathForResource:@"myDict" ofType:@"db"];
+    NSMutableArray *explainArray = [[NSMutableArray alloc] init];
+    int i = 0;
+    NSStringEncoding enc =  CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingUTF8);
+    if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK)
+    {
+        sqlite3_stmt *statement;
+        
+        
+        for (NSString *w in words){
+            if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"SELECT explain from 'Words' where word='%@'",[words objectAtIndex:i]] UTF8String], -1, &statement, nil) == SQLITE_OK){
+                while (sqlite3_step(statement) == SQLITE_ROW ){
+                    NSString *query = [[NSString alloc] initWithCString:(char *)sqlite3_column_text(statement, 0) encoding:enc];
+                    if([query length]>0){
+                        [explainArray addObject:query];
+                    }else{
+                        [explainArray addObject:@"未找到"];
+                    }
+                }
+            }else{
+                [explainArray addObject:@"未找到"];
+            }
+            i++;
+        }
+    }
+    NSLog(@"%@",explainArray);
+    NSString *explain = [[NSString alloc] init];
+    for (int p = 0; p < [explainArray count]; p++) {
+        explain = [explain stringByAppendingString:[words objectAtIndex:p]];
+        explain = [explain stringByAppendingFormat:@"\n%@\n\n",[explainArray objectAtIndex:p]];
+    }
+    return explain;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     state = 0;
-    [boom setEnabled:NO];
-    [stop setEnabled:NO];
     self.videoCamera = [[CvVideoCamera alloc] initWithParentView:imageView];
     self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
     self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1280x720;
@@ -57,8 +92,6 @@
 - (IBAction)doScan:(id)sender{
     if(state == 0){
         [self.videoCamera start];
-        [boom setEnabled:YES];
-        [stop setEnabled:YES];
         state = 1;
     }
 }
@@ -66,8 +99,6 @@
 - (IBAction)doStop:(id)sender{
     if (state == 1) {
         [self.videoCamera stop];
-        [boom setEnabled:NO];
-        [stop setEnabled:NO];
         state = 0;
     }
 }
@@ -75,9 +106,6 @@
 - (IBAction)doBoom:(id)sender{
     if (state == 1) {
         state = 0;
-        [boom setEnabled:NO];
-        [stop setEnabled:NO];
-        [scan setEnabled:NO];
         UIImage *image;
         for (UIView *subView in [self.view subviews]) {
             if ([subView isKindOfClass:NSClassFromString(@"UIImageView")]) {
@@ -117,7 +145,6 @@
 
 - (void)translateWithGoogle{
     NSArray *words = [self.OCRresult componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSLog(@"%@",words);
     NSString *s = @"http://translate.google.cn/#en/zh-CN/";
     BOOL is = NO;
     for(NSString *single in words){
@@ -150,11 +177,22 @@
 - (void)ocrProcessingFinished:(NSString *)result
 {
     [myHUD show:NO];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Result" message:[NSString stringWithFormat:@"解析结果：\n%@", result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Google Translate", nil];
+    
+    self.OCRresult = [NSString stringWithString:result];
+    NSArray *words = [self.OCRresult componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSMutableArray *query = [[NSMutableArray alloc] init];
+    for (NSString *w in words) {
+        [w stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        [w stringByReplacingOccurrencesOfString:@";" withString:@""];
+        [w stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        [w stringByReplacingOccurrencesOfString:@"." withString:@""];
+        [w stringByReplacingOccurrencesOfString:@")" withString:@""];
+        [w stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        [query addObject:w];
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Result" message:[NSString stringWithFormat:@"解析结果：\n%@", [self sqlQueryWithArray:query]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Google Translate", nil];
     [alert setDelegate:self];
     [alert show];
-    self.OCRresult = [NSString stringWithString:result];
-    [scan setEnabled:YES];
 }
 
 - (void)setTesseractImage:(UIImage *)image

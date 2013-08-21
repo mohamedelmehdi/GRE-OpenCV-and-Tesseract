@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE66F32617C47E420078AA8B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE66F32517C47E420078AA8B /* opencv2.framework */; };
+		FE66F32817C47E5E0078AA8B /* myDict.db in Resources */ = {isa = PBXBuildFile; fileRef = FE66F32717C47E5E0078AA8B /* myDict.db */; };
+		FE66F32A17C47E6C0078AA8B /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE66F32917C47E6C0078AA8B /* libsqlite3.0.dylib */; };
 		FE6DF54317C3A27400A83D09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF54217C3A27400A83D09 /* Foundation.framework */; };
 		FE6DF54517C3A27400A83D09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF54417C3A27400A83D09 /* CoreGraphics.framework */; };
 		FE6DF54717C3A27400A83D09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF54617C3A27400A83D09 /* UIKit.framework */; };
@@ -26,7 +29,6 @@
 		FE6DF57E17C3A2EF00A83D09 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF57917C3A2EF00A83D09 /* CoreImage.framework */; };
 		FE6DF57F17C3A2EF00A83D09 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF57A17C3A2EF00A83D09 /* CoreMedia.framework */; };
 		FE6DF58017C3A2EF00A83D09 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF57B17C3A2EF00A83D09 /* CoreVideo.framework */; };
-		FE6DF58217C3A2FD00A83D09 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF58117C3A2FD00A83D09 /* opencv2.framework */; };
 		FE6DF58517C3A35C00A83D09 /* GT_API.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6DF58417C3A35C00A83D09 /* GT_API.m */; };
 		FE6DF61C17C3A49000A83D09 /* liblept.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF61A17C3A47400A83D09 /* liblept.a */; };
 		FE6DF61D17C3A49000A83D09 /* libtesseract_all.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6DF61B17C3A47400A83D09 /* libtesseract_all.a */; };
@@ -49,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE66F32517C47E420078AA8B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		FE66F32717C47E5E0078AA8B /* myDict.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = myDict.db; sourceTree = "<group>"; };
+		FE66F32917C47E6C0078AA8B /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		FE6DF53F17C3A27400A83D09 /* GRE OpenCV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GRE OpenCV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6DF54217C3A27400A83D09 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FE6DF54417C3A27400A83D09 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,7 +78,6 @@
 		FE6DF57917C3A2EF00A83D09 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		FE6DF57A17C3A2EF00A83D09 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		FE6DF57B17C3A2EF00A83D09 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		FE6DF58117C3A2FD00A83D09 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
 		FE6DF58317C3A35C00A83D09 /* GT_API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GT_API.h; sourceTree = "<group>"; };
 		FE6DF58417C3A35C00A83D09 /* GT_API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GT_API.m; sourceTree = "<group>"; };
 		FE6DF61A17C3A47400A83D09 /* liblept.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblept.a; sourceTree = "<group>"; };
@@ -133,12 +137,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE66F32A17C47E6C0078AA8B /* libsqlite3.0.dylib in Frameworks */,
+				FE66F32617C47E420078AA8B /* opencv2.framework in Frameworks */,
 				FE6DF65617C3ADD600A83D09 /* libstdc++.6.0.9.dylib in Frameworks */,
 				FE6DF65317C3ADC700A83D09 /* EventKit.framework in Frameworks */,
 				FE6DF65417C3ADC700A83D09 /* EventKitUI.framework in Frameworks */,
 				FE6DF61C17C3A49000A83D09 /* liblept.a in Frameworks */,
 				FE6DF61D17C3A49000A83D09 /* libtesseract_all.a in Frameworks */,
-				FE6DF58217C3A2FD00A83D09 /* opencv2.framework in Frameworks */,
 				FE6DF57C17C3A2EF00A83D09 /* AssetsLibrary.framework in Frameworks */,
 				FE6DF57D17C3A2EF00A83D09 /* AVFoundation.framework in Frameworks */,
 				FE6DF57E17C3A2EF00A83D09 /* CoreImage.framework in Frameworks */,
@@ -185,10 +190,11 @@
 		FE6DF54117C3A27400A83D09 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE66F32917C47E6C0078AA8B /* libsqlite3.0.dylib */,
+				FE66F32517C47E420078AA8B /* opencv2.framework */,
 				FE6DF65517C3ADD600A83D09 /* libstdc++.6.0.9.dylib */,
 				FE6DF65117C3ADC700A83D09 /* EventKit.framework */,
 				FE6DF65217C3ADC700A83D09 /* EventKitUI.framework */,
-				FE6DF58117C3A2FD00A83D09 /* opencv2.framework */,
 				FE6DF57717C3A2EF00A83D09 /* AssetsLibrary.framework */,
 				FE6DF57817C3A2EF00A83D09 /* AVFoundation.framework */,
 				FE6DF57917C3A2EF00A83D09 /* CoreImage.framework */,
@@ -215,6 +221,7 @@
 				FE6DF65A17C3BE1600A83D09 /* TranslateViewController.h */,
 				FE6DF65B17C3BE1600A83D09 /* TranslateViewController.m */,
 				FE6DF65C17C3BE1600A83D09 /* TranslateViewController.xib */,
+				FE66F32717C47E5E0078AA8B /* myDict.db */,
 				FE6DF61E17C3A4F000A83D09 /* tessdata */,
 				FE6DF58617C3A47400A83D09 /* dependencies */,
 				FE6DF55A17C3A27400A83D09 /* Images.xcassets */,
@@ -416,6 +423,7 @@
 				FE6DF54D17C3A27400A83D09 /* InfoPlist.strings in Resources */,
 				FE6DF65E17C3BE1600A83D09 /* TranslateViewController.xib in Resources */,
 				FE6DF55617C3A27400A83D09 /* Main.storyboard in Resources */,
+				FE66F32817C47E5E0078AA8B /* myDict.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +573,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/..",
+					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GRE OpenCV/GRE OpenCV-Prefix.pch";
@@ -587,6 +596,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/..",
+					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GRE OpenCV/GRE OpenCV-Prefix.pch";

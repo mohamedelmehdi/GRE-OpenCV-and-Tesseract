@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <opencv2/highgui/cap_ios.h>
 #import "GT_API.h"
+#import <sqlite3.h>
 using namespace cv;
 @class UIProgressHUD;
 
@@ -26,6 +27,7 @@ namespace tesseract {
     NSInteger state;
     UIProgressHUD *myHUD;
     tesseract::TessBaseAPI *tesseract;
+    sqlite3 *database;
 }
 @property (nonatomic, strong) NSString *OCRresult;
 @property (nonatomic, retain) CvVideoCamera *videoCamera;
