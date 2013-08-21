@@ -42,11 +42,11 @@
             if ([(NSString *)[words objectAtIndex:i-1] length] == 0) {
                 continue;
             }
-            [wordsVaild addObject:w];
+            [wordsVaild addObject:[words objectAtIndex:i-1]];
             if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"SELECT explain from 'Words' where word='%@'",[words objectAtIndex:i-1]] UTF8String], -1, &statement, nil) == SQLITE_OK){
                 while (sqlite3_step(statement) == SQLITE_ROW ){
                     NSString *query = [[NSString alloc] initWithCString:(char *)sqlite3_column_text(statement, 0) encoding:enc];
-                    if([query length]>0){
+                    if([query length]>3){
                         [explainArray addObject:query];
                     }else{
                         [explainArray addObject:@"未找到"];
